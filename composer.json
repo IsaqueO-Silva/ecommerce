@@ -1,5 +1,5 @@
 {
-    "name": "isaqueosilva/ecommerce",
+    "name": "hcodebr/ecommerce",
     "authors": [
         {
             "name": "IsaqueO-Silva",
@@ -13,7 +13,7 @@
     },
     "autoload": {
         "psr-4": {
-            "": "vendor\\isaqueosilva\\php-classes\\src"
+            "Hcode\\": "vendor\\hcodebr\\php-classes\\src"
         }
     }
 }
