@@ -308,5 +308,38 @@ class User extends Model {
             'cost'  => 12
         ]);
     }
+
+    public static function setErrorRegister($msg) {
+
+		$_SESSION[User::ERROR_REGISTER] = $msg;
+
+	}
+
+    public static function getErrorRegister() {
+
+		$msg = (isset($_SESSION[User::ERROR_REGISTER]) && $_SESSION[User::ERROR_REGISTER]) ? $_SESSION[User::ERROR_REGISTER] : '';
+
+		User::clearErrorRegister();
+
+		return $msg;
+
+	}
+
+	public static function clearErrorRegister() {
+
+		$_SESSION[User::ERROR_REGISTER] = NULL;
+
+	}
+    
+    public static function checkLoginExist($login) {
+
+        $sql = new Sql();
+
+        $results = $sql->select('SELECT * FROM tb_users WHERE (deslogin = :deslogin);', array(
+            ':deslogin'    => $login
+        ));
+
+        return (count($results) > 0);
+    }
 }
 ?>
