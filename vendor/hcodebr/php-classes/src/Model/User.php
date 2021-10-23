@@ -13,7 +13,7 @@ class User extends Model {
     const SECRET_IV         = 'HcodePhp7_Secret_IV';
     const ERROR             = 'UserError';
     const ERROR_REGISTER    = 'UserErrorRegister';
-    const SUCCESS           = 'UserSuccess';
+    const SUCCESS           = 'UserSucesss';
 
     public static function getFromSession() {
 
@@ -140,22 +140,24 @@ class User extends Model {
         $this->setData($results[0]);
     }
 
-    public function update() {
+    public function update()
+	{
 
-        $sql = new Sql();
+		$sql = new Sql();
 
-        $results = $sql->select('CALL sp_usersupdate_save(:iduser, :desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin);', array(
-            ':iduser'       => $this->getiduser(),
-            ':desperson'    => $this->getdesperson(),
-            ':deslogin'     => $this->getdeslogin(),
-            ':despassword'  => User::getPasswordHash($this->getdespassword()),
-            ':desemail'     => $this->getdesemail(),
-            ':nrphone'      => $this->getnrphone(),
-            ':inadmin'      => $this->getinadmin()
-        ));
+		$results = $sql->select('CALL sp_usersupdate_save(:iduser, :desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)', array(
+			':iduser'=>$this->getiduser(),
+			':desperson'=>utf8_decode($this->getdesperson()),
+			':deslogin'=>$this->getdeslogin(),
+			':despassword'=>User::getPasswordHash($this->getdespassword()),
+			':desemail'=>$this->getdesemail(),
+			':nrphone'=>$this->getnrphone(),
+			':inadmin'=>$this->getinadmin()
+		));
 
-        $this->setData($results[0]);
-    }
+		$this->setData($results[0]);		
+
+	}
 
     public function delete() {
 
@@ -308,12 +310,14 @@ class User extends Model {
 
 	}
 
-    public static function getPasswordHash($password) {
+    public static function getPasswordHash($password)
+	{
 
-        return password_hash($password, PASSWORD_DEFAULT, [
-            'cost'  => 12
-        ]);
-    }
+		return password_hash($password, PASSWORD_DEFAULT, [
+			'cost'=>12
+		]);
+
+	}
 
     public static function setErrorRegister($msg) {
 
@@ -337,7 +341,7 @@ class User extends Model {
 
 	}
     
-    public static function checkLoginExist($login) {
+    public static function checkLoginExists($login) {
 
         $sql = new Sql();
 
