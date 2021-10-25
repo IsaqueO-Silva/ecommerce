@@ -140,8 +140,7 @@ class User extends Model {
         $this->setData($results[0]);
     }
 
-    public function update()
-	{
+    public function update() {
 
 		$sql = new Sql();
 
@@ -288,28 +287,6 @@ class User extends Model {
         ));
     }
 
-    public static function setError($msg) {
-
-		$_SESSION[User::ERROR] = $msg;
-
-	}
-
-	public static function getError() {
-
-		$msg = (isset($_SESSION[User::ERROR]) && $_SESSION[User::ERROR]) ? $_SESSION[User::ERROR] : '';
-
-		User::clearError();
-
-		return $msg;
-
-	}
-
-	public static function clearError() {
-
-		$_SESSION[User::ERROR] = NULL;
-
-	}
-
     public static function getPasswordHash($password) {
 
 		return password_hash($password, PASSWORD_DEFAULT, [
@@ -350,6 +327,28 @@ class User extends Model {
 
         return (count($results) > 0);
     }
+
+    public static function setError($msg) {
+
+		$_SESSION[User::ERROR] = $msg;
+
+	}
+
+	public static function getError() {
+
+		$msg = (isset($_SESSION[User::ERROR]) && $_SESSION[User::ERROR]) ? $_SESSION[User::ERROR] : '';
+
+		User::clearError();
+
+		return $msg;
+
+	}
+
+	public static function clearError() {
+
+		$_SESSION[User::ERROR] = NULL;
+
+	}
 
     public static function setSuccess($msg) {
 
