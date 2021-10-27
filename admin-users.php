@@ -6,7 +6,7 @@ use \Hcode\Model\User;
 /* User - CRUD */
 $app->get('/admin/users', function() {
 
-	//User::verifyLogin();
+	User::verifyLogin();
 
 	$users = User::listAll();
 

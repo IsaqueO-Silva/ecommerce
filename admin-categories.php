@@ -8,14 +8,44 @@ use \Hcode\Model\Product;
 /* Category - CRUD */
 $app->get('/admin/categories', function() {
 
-	User::verifyLogin();
+	//User::verifyLogin();
 
 	$categories = Category::listAll();
+
+	$search = (isset($_GET['search'])) ? $_GET['search'] : '';
+	$page 	= (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+
+	if($search != '') {
+
+		$pagination = Category::getPageSearch($search, $page, 1);
+	}
+	else {
+		
+		$pagination = Category::getPage($page, 1);
+	}
+
+	$pagination 	= Category::getPage($page, 1);
+
+	$pages = array();
+
+	for ($i = 0; $i < $pagination['pages'] ; $i++) { 
+
+		array_push($pages, array(
+
+			'href'	=>'/admin/categories?'.http_build_query(array(
+				'page'		=> $i+1,
+				'search'	=> $search
+			)),
+			'text'	=> $i+1
+		));
+	}
 
 	$page = new PageAdmin();
 
 	$page->setTpl('categories', array(
-		'categories'	=> $categories
+		'categories'	=> $pagination['data'],
+		'search'		=> $search,
+		'pages'			=> $pages
 	));
 });
 
