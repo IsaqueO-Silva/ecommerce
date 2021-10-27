@@ -8,7 +8,7 @@ use \Hcode\Model\Product;
 /* Category - CRUD */
 $app->get('/admin/categories', function() {
 
-	//User::verifyLogin();
+	User::verifyLogin();
 
 	$categories = Category::listAll();
 
