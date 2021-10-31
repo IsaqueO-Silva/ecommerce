@@ -7,9 +7,7 @@ use \Hcode\Model\Product;
 /* Product - CRUD */
 $app->get('/admin/products', function() {
 
-	//User::verifyLogin();
-
-	$products = Product::listAll();
+	User::verifyLogin();
 
 	$search = (isset($_GET['search'])) ? $_GET['search'] : '';
 	$page 	= (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
